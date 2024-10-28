@@ -70,6 +70,7 @@ const App = () => {
             selectedFriend={selectedFriend}
             onSplitBill={handelSplitBill}
             SetSelectedFriend={SetSelectedFriend}
+            key={selectedFriend.id}
           />
         )}
       </div>
