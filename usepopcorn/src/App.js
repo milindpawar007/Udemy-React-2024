@@ -1,14 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import tempMovieData from "./tempMovieData";
 import tempWatchedData from "./tempWatchedData";
 
+const KEY = "85413387";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, SetisLoading] = useState(false);
+  const [error, SetError] = useState("");
+  const query = "asdsad";
+  useEffect(() => {
+    const dataFetch = async () => {
+      try {
+        SetisLoading(true);
+        let response = await fetch(
+          `https://www.omdbapi.com/?&apikey=${KEY}&s=${query}`
+        );
+        if (!response.ok) throw new Error("something went wrong");
+
+        let data = await response.json();
+        console.log(data);
+        if (data.Response === "False") throw new Error("Movie Not found");
+
+        setMovies(data.Search);
+        SetisLoading(false);
+      } catch (error) {
+        console.log(error.message);
+        SetError(error.message);
+      } finally {
+        SetisLoading(false);
+      }
+    };
+    dataFetch();
+  }, []);
+
   return (
     <>
       <Navbar>
@@ -19,7 +48,9 @@ export default function App() {
 
       <Main>
         <Box>
-          <MovieList movies={movies} />
+          {isLoading && <Loader />}
+          {!isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
           <WatchedSummary watched={watched} />
@@ -30,6 +61,17 @@ export default function App() {
   );
 }
 
+function Loader() {
+  return <p className="loader">Loading...</p>;
+}
+function ErrorMessage({ message }) {
+  return (
+    <p className="error">
+      <span>⛔</span>
+      {message}
+    </p>
+  );
+}
 function Navbar({ children }) {
   return (
     <>
@@ -118,8 +160,8 @@ function Box({ children }) {
 function WatchedMovieList({ watched }) {
   return (
     <ul className="list">
-      {watched.map((movie) => (
-        <WatchedMovie movie={movie} />
+      {watched.map((movie, itr) => (
+        <WatchedMovie key={itr} movie={movie} />
       ))}
     </ul>
   );
