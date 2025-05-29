@@ -12,7 +12,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, SetisLoading] = useState(false);
   const [error, SetError] = useState("");
-  const tempQuery = "nasha";
+
   const [query, setQuery] = useState("2012");
   useEffect(() => {
     const fetchMovies = async () => {
