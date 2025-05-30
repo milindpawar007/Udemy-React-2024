@@ -239,9 +239,11 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
     
     onAddWatched(newMovie);
     onCloseMovie();
+   
   }
 
   useEffect(() => {
+    let isMounted = true;
     async function fetchMovieDetails() {
       try {
         const response = await fetch(
@@ -253,8 +255,12 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
         console.log(data);
         if (data.Response === "False") throw new Error("Movie Not found");
 
-
-        setSearchedMovie(data);
+        if (isMounted) {
+          setSearchedMovie(data);
+          if (data.Title) {
+            document.title = `MOVIE | ${data.Title}`;
+          }
+        }
       } catch (error) {
         console.error(error.message);
       }
@@ -264,6 +270,10 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
     } else {
       setSearchedMovie(null);
     }
+    return function cleanup() {
+      isMounted = false;
+      document.title = "usePopcorn";
+    };
   }, [selectedID]);
 
   // const movie = movies.find((movie) => movie.imdbID === selectedID);
