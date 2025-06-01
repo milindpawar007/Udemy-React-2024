@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import tempMovieData from "./tempMovieData";
-import tempWatchedData from "./tempWatchedData";
+// import tempMovieData from "./tempMovieData";
+// import tempWatchedData from "./tempWatchedData";
 import StarRating from "./Component/StarRating";
 const KEY = "85413387";
 const average = (arr) =>
