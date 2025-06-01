@@ -27,13 +27,18 @@ export default function App() {
   function handelDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
+ 
+
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchMovies = async () => {
       try {
         SetisLoading(true);
         SetError("");
         let response = await fetch(
-          `https://www.omdbapi.com/?&apikey=${KEY}&s=${query}`
+          `https://www.omdbapi.com/?&apikey=${KEY}&s=${query}`,{signal: controller.signal}
         );
         if (!response.ok) throw new Error("something went wrong");
 
@@ -43,9 +48,14 @@ export default function App() {
 
         setMovies(data.Search);
         SetisLoading(false);
-      } catch (error) {
+        SetError("");
+      } catch (error)
+       {
         console.log(error.message);
-        SetError(error.message);
+        if (error.name !== "AbortError") {
+          SetError(error.message);  
+          return;
+        } 
       } finally {
         SetisLoading(false);
       }
@@ -56,6 +66,11 @@ export default function App() {
       return;
     }
     fetchMovies();
+    return () => {
+      controller.abort();
+      SetisLoading(false);
+      SetError("");
+    };
   }, [query]);
 
   return (
@@ -241,7 +256,14 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
     onCloseMovie();
    
   }
-
+  useEffect(()=>{
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        onCloseMovie();
+      }
+    }
+    );
+  },[])
   useEffect(() => {
     let isMounted = true;
     async function fetchMovieDetails() {
