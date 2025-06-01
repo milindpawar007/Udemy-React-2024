@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 // import tempMovieData from "./tempMovieData";
 // import tempWatchedData from "./tempWatchedData";
 import StarRating from "./Component/StarRating";
+import { use } from "react";
 const KEY = "85413387";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -18,6 +19,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null);
 
+ 
   function handleSelectMovie(id) {
     setSelectedID((selectedID) => (selectedID === id ? null : id));
   }
@@ -273,6 +275,17 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
 
   const isWatched = (watched ?? []).map((movie)=>movie.imdbID).includes(searchedMovie.imdbID);
   const watchedUserRating= watched.find((movie)=>movie.imdbID === searchedMovie.imdbID)?.userRating;
+  
+  const countRef = useRef(0);
+
+  useEffect(() => {
+ 
+     if(userRating) {
+      
+      countRef.current = countRef.current + 1;
+    }
+  }
+  , [userRating]);
 
   function Handeladd(){
     const newMovie={
@@ -282,6 +295,7 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
       imdbRating: searchedMovie.imdbRating,
       userRating: userRating, // Default value, can be updated later
       runtime: parseInt(searchedMovie.Runtime),
+      countRatinfdescison: countRef.current
     }
     
     onAddWatched(newMovie);
