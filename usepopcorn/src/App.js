@@ -256,14 +256,18 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
     onCloseMovie();
    
   }
-  useEffect(()=>{
-    document.addEventListener("keydown", (e) => {
+  useEffect(() => {
+    function handleKeyDown(e) {
       if (e.key === "Escape") {
         onCloseMovie();
+        console.log("Escape key pressed, closing movie details");
       }
     }
-    );
-  },[])
+    document.addEventListener("keydown", handleKeyDown);
+    return function cleanup() {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onCloseMovie]);
   useEffect(() => {
     let isMounted = true;
     async function fetchMovieDetails() {
