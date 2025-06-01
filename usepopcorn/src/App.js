@@ -12,7 +12,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, SetisLoading] = useState(false);
   const [error, SetError] = useState("");
-  const [query, setQuery] = useState("avengers");
+  const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null);
 
   function handleSelectMovie(id) {
@@ -43,7 +43,7 @@ export default function App() {
         if (!response.ok) throw new Error("something went wrong");
 
         let data = await response.json();
-        console.log(data);
+      
         if (data.Response === "False") throw new Error("Movie Not found");
 
         setMovies(data.Search);
@@ -260,7 +260,7 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
     function handleKeyDown(e) {
       if (e.key === "Escape") {
         onCloseMovie();
-        console.log("Escape key pressed, closing movie details");
+        
       }
     }
     document.addEventListener("keydown", handleKeyDown);
@@ -278,7 +278,7 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
         if (!response.ok) throw new Error("Something went wrong");
 
         const data = await response.json();
-        console.log(data);
+       
         if (data.Response === "False") throw new Error("Movie Not found");
 
         if (isMounted) {
