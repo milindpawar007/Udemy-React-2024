@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // import tempMovieData from "./tempMovieData";
 // import tempWatchedData from "./tempWatchedData";
@@ -139,6 +139,10 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
+  const inputElement =useRef(null);
+  useEffect(()=>{
+   inputElement.current.focus();
+  },[])
   return (
     <input
       className="search
@@ -147,6 +151,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputElement}
     />
   );
 }
