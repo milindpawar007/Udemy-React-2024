@@ -69,27 +69,13 @@ export default function App() {
 
 function Search({ query, setQuery }) {
   const inputElement =useRef(null);
-
-  useEffect(()=>{
+  
+  useKEY("Enter", () => {
+    if (document.activeElement === inputElement.current) return;
     inputElement.current.focus();
-    function callBack(e) {
-      if ( document.activeElement === inputElement.current) return;
-        e.preventDefault();
-        if(e.code === "Enter"){
-          inputElement.current.focus();
-         setQuery("");
-        }
-        
-      
-    }
-    document.addEventListener("keypress", callBack);
+    setQuery("");
+  })
 
-    
-
-    return function cleanup() {
-      document.removeEventListener("keypress", callBack);
-    }
-  },[setQuery])
   return (
     <input
       className="search
@@ -225,7 +211,7 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
   }
   useKEY("Escape", onCloseMovie);
 
-  
+
   useEffect(() => {
     let isMounted = true;
     async function fetchMovieDetails() {
