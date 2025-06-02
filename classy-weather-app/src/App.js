@@ -33,7 +33,7 @@ function formatDay(dateStr) {
 }
 
 export default function App() {
-  const [location, setLocation] = useState('lisbon');
+  const [location, setLocation] = useState('Dallas');
   const [isLoading, setIsLoading] = useState(false);
   const [displayLocation, setDisplayLocation] = useState('');
   const [weather, setWeather] = useState({});
@@ -65,7 +65,11 @@ export default function App() {
       setIsLoading(false);
     }
   };
-
+  function handleSearch(e) {
+    setLocation(e.target.value);
+    setIsLoading(true);
+    fetchWeather();
+  }
   return (
     <div className="app">
       <h1>Classy Weather</h1>
@@ -74,10 +78,11 @@ export default function App() {
           type="text"
           placeholder="Search for a location..."
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => {
+            handleSearch(e);
+          }}
         />
       </div>
-      <button onClick={fetchWeather}>Get weather</button>
 
       {isLoading && <p className="loader">Loading...</p>}
 
