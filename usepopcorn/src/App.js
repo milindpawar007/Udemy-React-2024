@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./Component/StarRating";
 import { useMVoies } from "./Hooks/useMovies";
-// Make sure you have a .env file at the root of your project with REACT_APP_KEY=your_api_key
+import NumResult from "./Component/NumResult";
+import ErrorMessage from "./Component/ErrorMessage";
+import Navbar from "./Component/Navbar";
+import Logo from "./Component/Logo";
+
 const KEY = process.env.REACT_APP_KEY;
 
 const average = (arr) =>
@@ -70,30 +74,11 @@ export default function App() {
 function Loader() {
   return <p className="loader">Loading...</p>;
 }
-function ErrorMessage({ message }) {
-  return (
-    <p className="error">
-      <span>⛔</span>
-      {message}
-    </p>
-  );
-}
-function Navbar({ children }) {
-  return (
-    <>
-      <nav className="nav-bar">{children}</nav>
-    </>
-  );
-}
 
-function Logo() {
-  return (
-    <div className="logo">
-      <span role="img">🍿</span>
-      <h1>usePopcorn</h1>
-    </div>
-  );
-}
+
+
+
+
 
 function Search({ query, setQuery }) {
   const inputElement =useRef(null);
@@ -131,13 +116,7 @@ function Search({ query, setQuery }) {
   );
 }
 
-function NumResult({ movies }) {
-  return (
-    <p className="num-results">
-      Found <strong>{movies.length}</strong> results
-    </p>
-  );
-}
+
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
