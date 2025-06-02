@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./Component/StarRating";
+import { useMVoies } from "./Hooks/useMovies";
 // Make sure you have a .env file at the root of your project with REACT_APP_KEY=your_api_key
 const KEY = process.env.REACT_APP_KEY;
 
@@ -7,15 +8,16 @@ const average = (arr) =>
   arr.length === 0 ? 0 : arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [movies, setMovies] = useState([]);
+  
   const [watched, setWatched] = useState(function(){
     const storedWatched = localStorage.getItem("watched")
     return storedWatched ? JSON.parse(storedWatched) : [];
   });
-  const [isLoading, SetisLoading] = useState(false);
-  const [error, SetError] = useState("");
+ 
   const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null);
+  
+  const {movies, isLoading,error}=useMVoies(query);
 
   function handleSelectMovie(id) {
     setSelectedID((selectedID) => (selectedID === id ? null : id));
@@ -35,51 +37,7 @@ export default function App() {
     localStorage.setItem("watched", JSON.stringify(watched));
   }, [watched]);
 
-  useEffect(() => {
 
-
-
-    const controller = new AbortController();
-
-    const fetchMovies = async () => {
-      try {
-        SetisLoading(true);
-        SetError("");
-        let response = await fetch(
-          `https://www.omdbapi.com/?&apikey=${KEY}&s=${query}`,{signal: controller.signal}
-        );
-        if (!response.ok) throw new Error("something went wrong");
-
-        let data = await response.json();
-      
-        if (data.Response === "False") throw new Error("Movie Not found");
-
-        setMovies(data.Search);
-        SetisLoading(false);
-        SetError("");
-      } catch (error)
-       {
-        console.log(error.message);
-        if (error.name !== "AbortError") {
-          SetError(error.message);  
-          return;
-        } 
-      } finally {
-        SetisLoading(false);
-      }
-    };
-    if (query.length < 3) {
-      setMovies([]);
-      SetError("");
-      return;
-    }
-    fetchMovies();
-    return () => {
-      controller.abort();
-      SetisLoading(false);
-      SetError("");
-    };
-  }, [query]);
 
   return (
     <>
