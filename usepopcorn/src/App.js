@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import StarRating from "./Component/StarRating";
 // Make sure you have a .env file at the root of your project with REACT_APP_KEY=your_api_key
 const KEY = process.env.REACT_APP_KEY;
-if (!KEY) {
-  console.warn("REACT_APP_KEY is undefined. Please check your .env file and restart the development server.");
-}
+
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
@@ -18,8 +16,7 @@ export default function App() {
   const [error, SetError] = useState("");
   const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null);
- console.log(KEY)
- 
+
   function handleSelectMovie(id) {
     setSelectedID((selectedID) => (selectedID === id ? null : id));
   }
