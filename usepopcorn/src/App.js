@@ -5,6 +5,7 @@ import NumResult from "./Component/NumResult";
 import ErrorMessage from "./Component/ErrorMessage";
 import Navbar from "./Component/Navbar";
 import Logo from "./Component/Logo";
+import Loader from "./Component/Loader";
 
 const KEY = process.env.REACT_APP_KEY;
 
@@ -70,14 +71,6 @@ export default function App() {
     </>
   );
 }
-
-function Loader() {
-  return <p className="loader">Loading...</p>;
-}
-
-
-
-
 
 
 function Search({ query, setQuery }) {
