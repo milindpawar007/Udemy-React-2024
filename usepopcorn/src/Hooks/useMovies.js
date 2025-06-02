@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 const KEY = process.env.REACT_APP_KEY;
-export function useMVoies(query) {
+export function useMovies(query) {
   const [isLoading, SetisLoading] = useState(false);
   const [error, SetError] = useState("");
   const [movies, setMovies] = useState([]);
