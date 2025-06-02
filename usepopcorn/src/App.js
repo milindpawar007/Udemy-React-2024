@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-
-// import tempMovieData from "./tempMovieData";
-// import tempWatchedData from "./tempWatchedData";
 import StarRating from "./Component/StarRating";
-import { use } from "react";
-const KEY = "85413387";
+const KEY =process.env.REACT_APP_API_KEY;
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
@@ -49,7 +45,7 @@ export default function App() {
         SetisLoading(true);
         SetError("");
         let response = await fetch(
-          `https://www.omdbapi.com/?&apikey=${KEY}&s=${query}`,{signal: controller.signal}
+          `https://www.omdbapi.com/?&apikey=${}&s=${query}`,{signal: controller.signal}
         );
         if (!response.ok) throw new Error("something went wrong");
 
