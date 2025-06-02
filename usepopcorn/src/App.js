@@ -7,6 +7,7 @@ import Navbar from "./Component/Navbar";
 import Logo from "./Component/Logo";
 import Loader from "./Component/Loader";
 import useLocalStorageState from "./Hooks/useLocalStorageState";
+import useKEY from "./Hooks/useKey";
 
 const KEY = process.env.REACT_APP_KEY;
 
@@ -222,18 +223,9 @@ function MovieDeatils({ selectedID, onCloseMovie ,onAddWatched ,watched }) {
     onCloseMovie();
    
   }
-  useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.key === "Escape") {
-        onCloseMovie();
-        
-      }
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return function cleanup() {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onCloseMovie]);
+  useKEY("Escape", onCloseMovie);
+
+  
   useEffect(() => {
     let isMounted = true;
     async function fetchMovieDetails() {
