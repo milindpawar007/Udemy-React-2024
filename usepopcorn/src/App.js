@@ -4,7 +4,7 @@ import StarRating from "./Component/StarRating";
 const KEY = process.env.REACT_APP_KEY;
 
 const average = (arr) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+  arr.length === 0 ? 0 : arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
   const [movies, setMovies] = useState([]);
