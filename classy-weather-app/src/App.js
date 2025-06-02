@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function getWeatherIcon(wmoCode) {
   const icons = new Map([
@@ -51,8 +51,11 @@ export default function App() {
 
       const { latitude, longitude, timezone, name, country_code } =
         geoData.results.at(0);
-
-      setDisplayLocation(`${name} ${convertToFlag(country_code)}`);
+      let flag = '';
+      if (country_code && country_code.length === 2) {
+        flag = convertToFlag(country_code);
+      }
+      setDisplayLocation(`${name} ${flag}`);
 
       const weatherRes = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`
