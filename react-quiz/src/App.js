@@ -1,9 +1,9 @@
-import './App.css';
+import DateCounter from './Component/DateCounter';
 
 function App() {
   return (
     <div className="App">
-      <h1>test</h1>
+      <DateCounter />
     </div>
   );
 }
