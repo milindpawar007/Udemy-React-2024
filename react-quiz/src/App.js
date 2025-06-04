@@ -1,7 +1,8 @@
 import { useEffect, useReducer } from 'react';
 import Header from './Component/Header';
 import Main from './Component/Main';
-
+import Loader from './Component/Loader';
+import Errors from './Component/Erros';
 const initialState = {
   questions: [],
   // 'ready' ,'active', 'error, 'finished'
@@ -27,7 +28,7 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +39,9 @@ function App() {
           console.error(`HTTP error! status: ${response.status}`);
         }
         const questions = await response.json();
-        dispatch({ type: 'dataReceived', payload: questions });
+        setTimeout(() => {
+          dispatch({ type: 'dataReceived', payload: questions });
+        }, 3000);
       } catch (error) {
         console.error('Fetch error:', error);
         dispatch({ type: 'dataFalied' });
@@ -51,7 +54,10 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <Main />
+      <Main>
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <Errors />}
+      </Main>
     </div>
   );
 }
