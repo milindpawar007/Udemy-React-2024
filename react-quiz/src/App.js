@@ -7,7 +7,7 @@ import StartScreen from './Component/StartScreen';
 import Question from './Component/Question';
 import NextButton from './Component/NextButton';
 import Progress from './Component/Progress';
-
+import FinishScreen from './Component/FinishScreen';
 const initialState = {
   questions: [],
   // 'ready' ,'active', 'error, 'finished'
@@ -44,7 +44,7 @@ function reducer(state, action) {
         points:
           action.payload === question.correctOption
             ? state.points + question.points
-            : state.point,
+            : state.points,
       };
     case 'nextQuestion':
       return {
@@ -52,7 +52,13 @@ function reducer(state, action) {
         index: state.index + 1,
         answer: null,
       };
-
+    case 'finish':
+      return {
+        ...state,
+        status: 'finish',
+      };
+    case 'restart':
+      return { ...initialState, question: state.questions, status: 'ready' };
     default:
       throw Error('error');
   }
@@ -111,10 +117,21 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              index={index}
+              numQuestions={questions.length}
+            />
           </>
         )}
-        {status === 'finish' && <></>}
+        {status === 'finish' && (
+          <FinishScreen
+            points={points}
+            maxPossiblePoints={maxPossiblePoints}
+            dispatch={dispatch}
+          />
+        )}
       </Main>
     </div>
   );
