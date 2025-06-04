@@ -4,6 +4,7 @@ import Main from './Component/Main';
 import Loader from './Component/Loader';
 import Errors from './Component/Erros';
 import StartScreen from './Component/StartScreen';
+import Question from './Component/Question';
 const initialState = {
   questions: [],
   // 'ready' ,'active', 'error, 'finished'
@@ -22,6 +23,11 @@ function reducer(state, action) {
       return {
         ...state,
         status: 'error',
+      };
+    case 'start':
+      return {
+        ...state,
+        status: 'active',
       };
     default:
       throw Error('error');
@@ -57,9 +63,12 @@ function App() {
       <Header />
 
       <Main>
-        {status === 'loading' ? <Loader /> : <></>}
-        {status === 'error' ? <Errors /> : <></>}
-        {status === 'ready' ? <StartScreen numQuestion={numQuestion} /> : <></>}
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <Errors />}
+        {status === 'ready' && (
+          <StartScreen numQuestion={numQuestion} dispatch={dispatch} />
+        )}
+        {status === 'active' && <Question />}
       </Main>
     </div>
   );
