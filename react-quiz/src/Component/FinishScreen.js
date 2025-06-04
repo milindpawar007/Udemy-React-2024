@@ -11,8 +11,8 @@ function FinishScreen({ points, maxPossiblePoints, dispatch }) {
   return (
     <>
       <p className="result">
-        <span>{emoji}</span>You Scored <strong>{points}</strong> out of
-        {maxPossiblePoints} ({Math.ceil(percentage) + '%'})
+        <span>{emoji}</span>You Scored <strong>{points}</strong> out of{' '}
+        {maxPossiblePoints} ( {Math.ceil(percentage) + '%'} )
       </p>
       <button
         className="btn btn-ui"

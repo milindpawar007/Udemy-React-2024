@@ -5,9 +5,11 @@ import Loader from './Component/Loader';
 import Errors from './Component/Erros';
 import StartScreen from './Component/StartScreen';
 import Question from './Component/Question';
-import NextButton from './Component/NextButton';
+import Footer from './Component/Footer';
 import Progress from './Component/Progress';
 import FinishScreen from './Component/FinishScreen';
+import NextButton from './Component/NextButton';
+import Timer from './Component/Timer';
 const initialState = {
   questions: [],
   // 'ready' ,'active', 'error, 'finished'
@@ -15,6 +17,7 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  secondsRemaing: 15,
 };
 
 function reducer(state, action) {
@@ -59,16 +62,22 @@ function reducer(state, action) {
       };
     case 'restart':
       return { ...initialState, questions: state.questions, status: 'ready' };
+    case 'tick':
+      return {
+        ...state,
+        secondsRemaing: state.secondsRemaing - 1,
+        status: state.secondsRemaing === 0 ? 'finish' : state.status,
+      };
     default:
       throw Error('error');
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { questions, status, index, answer, points, secondsRemaing },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const numQuestion = questions.length;
   const maxPossiblePoints = questions.reduce((prv, cur) => prv + cur.points, 0);
@@ -117,12 +126,15 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton
-              dispatch={dispatch}
-              answer={answer}
-              index={index}
-              numQuestions={questions.length}
-            />
+            <Footer>
+              <Timer dispatch={dispatch} secondsRemaing={secondsRemaing} />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                index={index}
+                numQuestions={numQuestion}
+              />
+            </Footer>
           </>
         )}
         {status === 'finish' && (
