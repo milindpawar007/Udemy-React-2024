@@ -15,7 +15,7 @@ function FinishScreen({ points, maxPossiblePoints, dispatch }) {
         {maxPossiblePoints} ({Math.ceil(percentage) + '%'})
       </p>
       <button
-        className="bt btn-ui"
+        className="btn btn-ui"
         onClick={() => {
           dispatch({ type: 'restart' });
         }}

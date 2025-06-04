@@ -58,7 +58,7 @@ function reducer(state, action) {
         status: 'finish',
       };
     case 'restart':
-      return { ...initialState, question: state.questions, status: 'ready' };
+      return { ...initialState, questions: state.questions, status: 'ready' };
     default:
       throw Error('error');
   }
