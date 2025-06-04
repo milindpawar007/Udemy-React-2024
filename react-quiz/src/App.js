@@ -98,23 +98,23 @@ function App() {
           <StartScreen numQuestion={numQuestion} dispatch={dispatch} />
         )}
         {status === 'active' && (
-          <Progress
-            index={index}
-            numQuestions={questions.length}
-            points={points}
-            maxPossiblePoints={maxPossiblePoints}
-            answer={answer}
-          />
+          <>
+            <Progress
+              index={index}
+              numQuestions={questions.length}
+              points={points}
+              maxPossiblePoints={maxPossiblePoints}
+              answer={answer}
+            />
+            <Question
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
-        {status === 'active' && (
-          <Question
-            question={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
-        )}
-
-        <NextButton dispatch={dispatch} answer={answer} />
+        {status === 'finish' && <></>}
       </Main>
     </div>
   );
