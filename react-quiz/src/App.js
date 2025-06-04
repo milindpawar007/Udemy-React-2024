@@ -39,9 +39,8 @@ function App() {
           console.error(`HTTP error! status: ${response.status}`);
         }
         const questions = await response.json();
-        setTimeout(() => {
-          dispatch({ type: 'dataReceived', payload: questions });
-        }, 3000);
+
+        dispatch({ type: 'dataReceived', payload: questions });
       } catch (error) {
         console.error('Fetch error:', error);
         dispatch({ type: 'dataFalied' });
@@ -54,9 +53,10 @@ function App() {
   return (
     <div className="app">
       <Header />
+
       <Main>
-        {status === 'loading' && <Loader />}
-        {status === 'error' && <Errors />}
+        {status === 'loading' ? <Loader /> : <></>}
+        {status === 'error' ? <Errors /> : <></>}
       </Main>
     </div>
   );
