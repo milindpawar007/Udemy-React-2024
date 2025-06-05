@@ -1,9 +1,10 @@
-function MAp() {
+import styles from './MAp.module.css'
+function Map() {
     return (
-        <div>
-
+        <div className={styles.mapContainer}>
+            Map
         </div>
     )
 }
 
-export default MAp
+export default Map
