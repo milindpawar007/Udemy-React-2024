@@ -1,9 +1,9 @@
 
 import Sidebar from "../Component/Sidebar"
-
+import styles from './AppLayout.module.css'
 function AppLayout() {
     return (
-        <div >
+        <div className={styles.app} >
             <Sidebar />
         </div>
     )
