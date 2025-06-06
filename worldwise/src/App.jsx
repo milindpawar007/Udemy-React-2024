@@ -5,6 +5,7 @@ import Homepage from "./pages/Homepage"
 import PageNotFound from "./pages/PageNotFound"
 import AppLayout from "./pages/AppLayout"
 import Login from "./pages/Login"
+
 function App() {
   return (
     <BrowserRouter>
@@ -13,7 +14,11 @@ function App() {
         <Route path="product" element={<Product />}></Route>
         <Route path="pricing" element={<Pricing />}></Route>
         <Route path="login" element={<Login />}></Route>
-        <Route path="app" element={<AppLayout />}></Route>
+        <Route path="app" element={<AppLayout />}>
+          <Route path="cities" element={<p>cities</p>} />
+          <Route path="countries" element={<p>countries</p>} />
+          <Route path="form" element={<p>MAp data</p>} />
+        </Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
     </BrowserRouter>
