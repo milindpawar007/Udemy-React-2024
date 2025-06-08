@@ -8,6 +8,7 @@ import CountryItem from './CountryItem'
 import PropTypes from 'prop-types';
 
 
+
 function CountryList({ cities, isloading }) {
     console.log(cities)
 
@@ -26,5 +27,14 @@ function CountryList({ cities, isloading }) {
     )
 }
 
+CountryList.propTypes = {
+    cities: PropTypes.arrayOf(
+        PropTypes.shape({
+            country: PropTypes.string.isRequired,
+            emoji: PropTypes.string,
+        })
+    ).isRequired,
+    isloading: PropTypes.bool.isRequired,
+};
 
 export default CountryList;
