@@ -35,6 +35,30 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "id": "741c",
+      "cityName": "Dallas",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2025-06-10T20:02:30.426Z",
+      "notes": "textas is best",
+      "position": {
+        "lat": 32.898292811250165,
+        "lng": -96.93079342570539
+      }
+    },
+    {
+      "id": "17fb",
+      "cityName": "Lewisville",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2025-06-10T20:03:16.347Z",
+      "notes": "asdasd",
+      "position": {
+        "lat": 33.23899558720061,
+        "lng": -97.05403451677586
+      }
     }
   ]
 }

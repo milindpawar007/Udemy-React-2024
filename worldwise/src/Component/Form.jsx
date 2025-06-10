@@ -13,6 +13,7 @@ import Flag from './Flag';
 import Message from "./Message";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useCities } from "../Context/CitiesContext";
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -30,6 +31,8 @@ function Form() {
   const [lat, lng] = useURLPosition();
   const [isLoadingGeocodingdata, setIsLoadingGeocodingdata] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+  const { createCity } = useCities();
+
   useEffect(() => {
     async function CityData() {
       if (!lat & !lng) return;
@@ -59,13 +62,16 @@ function Form() {
     const newCity = {
       cityName,
       country,
-      emoji,
-      startDate,
+      "emoji": convertToEmoji(emoji),
+      "date": startDate,
       notes,
-      position: { lat, lng }
+      position: { lat, lng },
+
 
     }
+    createCity(newCity)
     console.log(newCity)
+
     console.log(e.target)
   }
   if (isLoadingGeocodingdata) return <Spinner />
