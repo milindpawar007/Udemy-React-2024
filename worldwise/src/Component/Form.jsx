@@ -10,6 +10,7 @@ import useURLPosition from "../hooks/useURLPosition";
 import { useEffect } from "react";
 import Spinner from './Spinner';
 import Flag from './Flag';
+import Message from "./Message";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -29,6 +30,7 @@ function Form() {
   const [isLoadingGeocodingdata, setIsLoadingGeocodingdata] = useState(false);
   useEffect(() => {
     async function CityData() {
+      if (!lat & !lng) return;
       try {
         setIsLoadingGeocodingdata(true);
         const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
@@ -38,8 +40,8 @@ function Form() {
         setCountry(data.countryCode || "");
         setIsLoadingGeocodingdata(false);
 
-      } catch (error) {
-        console.log(error)
+      } catch (er) {
+        <Message message='Start by clicking on map' />
       } finally {
         setIsLoadingGeocodingdata(false)
       }
@@ -48,6 +50,7 @@ function Form() {
     CityData();
   }, [lat, lng])
   if (isLoadingGeocodingdata) return <Spinner />
+  if (!lat & !lng) return <Message message='Start by clicking on map' />
   return (
     <form className={styles.form}>
       <div className={styles.row}>
