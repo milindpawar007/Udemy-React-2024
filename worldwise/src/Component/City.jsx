@@ -5,6 +5,7 @@ import { useCities } from "../Context/CitiesContext";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import Flag from './Flag';
+import ButtonBack from "./ButtonBack";
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -61,7 +62,7 @@ function City() {
       </div>
 
       <div>
-        {/* <ButtonBack /> */}
+        <ButtonBack />
       </div>
     </div>
   );
