@@ -10,7 +10,7 @@
         "lat": 38.727881642324164,
         "lng": -9.140900099907554
       },
-      "id": 73930385
+      "id": "73930385"
     },
     {
       "cityName": "Madrid",
@@ -22,7 +22,7 @@
         "lat": 40.46635901755316,
         "lng": -3.7133789062500004
       },
-      "id": 17806751
+      "id": "17806751"
     },
     {
       "cityName": "Berlin",
@@ -34,7 +34,7 @@
         "lat": 52.53586782505711,
         "lng": 13.376933665713324
       },
-      "id": 98443197
+      "id": "98443197"
     },
     {
       "id": "741c",
@@ -58,6 +58,42 @@
       "position": {
         "lat": 33.23899558720061,
         "lng": -97.05403451677586
+      }
+    },
+    {
+      "id": "066b",
+      "cityName": "Arlington",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2025-06-10T20:12:16.086Z",
+      "notes": "",
+      "position": {
+        "lat": 32.72748025549066,
+        "lng": -97.0647076817144
+      }
+    },
+    {
+      "id": "1769",
+      "cityName": "Fort Worth",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2025-06-10T20:13:25.712Z",
+      "notes": "texas",
+      "position": {
+        "lat": 32.736540379006534,
+        "lng": -97.29547650741608
+      }
+    },
+    {
+      "id": "b4e9",
+      "cityName": "Southwest Grayson",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2025-06-10T20:13:55.495Z",
+      "notes": "added",
+      "position": {
+        "lat": 33.4108646542752,
+        "lng": -96.7736475867767
       }
     }
   ]

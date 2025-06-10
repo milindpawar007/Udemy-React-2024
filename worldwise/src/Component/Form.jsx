@@ -14,6 +14,7 @@ import Message from "./Message";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCities } from "../Context/CitiesContext";
+import { useNavigate } from "react-router-dom";
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -31,8 +32,8 @@ function Form() {
   const [lat, lng] = useURLPosition();
   const [isLoadingGeocodingdata, setIsLoadingGeocodingdata] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  const { createCity } = useCities();
-
+  const { createCity, isloading } = useCities();
+  const navigate = useNavigate()
   useEffect(() => {
     async function CityData() {
       if (!lat & !lng) return;
@@ -56,7 +57,7 @@ function Form() {
     CityData();
   }, [lat, lng]);
 
-  function handelSubmit(e) {
+  async function handelSubmit(e) {
     e.preventDefault();
     if (!cityName || !startDate) return;
     const newCity = {
@@ -69,15 +70,13 @@ function Form() {
 
 
     }
-    createCity(newCity)
-    console.log(newCity)
-
-    console.log(e.target)
+    await createCity(newCity)
+    navigate("/app/cities")
   }
   if (isLoadingGeocodingdata) return <Spinner />
   if (!lat & !lng) return <Message message='Start by clicking on map' />
   return (
-    <form className={styles.form} onSubmit={handelSubmit}>
+    <form className={`${styles.form} ${isloading ? styles.loading : ""}`} onSubmit={handelSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
