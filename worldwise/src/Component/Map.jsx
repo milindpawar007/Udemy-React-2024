@@ -11,8 +11,6 @@ function Map() {
     const { cities } = useCities();
     const [mapPosition, setMapPosition] = useState([52.53586782505711, 13.376933665713324])
     const [searchParam] = useSearchParams();
-    // const maplat = Number(searchParam.get("lat")) || 52.53586782505711;
-    // const maplng = Number(searchParam.get("lng")) || 13.376933665713324;
     const maplat = Number(searchParam.get("lat"));
     const maplng = Number(searchParam.get("lng"));
 
