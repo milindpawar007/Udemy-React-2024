@@ -6,6 +6,10 @@ import styles from "./Form.module.css";
 import Button from "./Button";
 
 import ButtonBack from "./ButtonBack";
+import useURLPosition from "../hooks/useURLPosition";
+import { useEffect } from "react";
+import Spinner from './Spinner';
+import Flag from './Flag';
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -18,10 +22,31 @@ export function convertToEmoji(countryCode) {
 function Form() {
 
   const [cityName, setCityName] = useState("");
-  //const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("");
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
+  const [lat, lng] = useURLPosition();
+  const [isLoadingGeocodingdata, setIsLoadingGeocodingdata] = useState(false);
+  useEffect(() => {
+    async function CityData() {
+      try {
+        setIsLoadingGeocodingdata(true);
+        const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
+        const data = await res.json();
+        setCityName(data.city || data.locality || "")
+        setCountry(data.countryCode || "");
 
+
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoadingGeocodingdata(false)
+      }
+
+    }
+    CityData();
+  }, [lat, lng])
+  if (isLoadingGeocodingdata) return <Spinner />
   return (
     <form className={styles.form}>
       <div className={styles.row}>
@@ -31,7 +56,8 @@ function Form() {
           onChange={(e) => setCityName(e.target.value)}
           value={cityName}
         />
-        {/* <span className={styles.flag}>{emoji}</span> */}
+        {<span className={styles.flag}>{country && <Flag countryCode={country} />}</span>}
+        {/* <span className={styles.flag}>{country}</span> */}
       </div>
 
       <div className={styles.row}>

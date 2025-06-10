@@ -5,7 +5,7 @@ import Spinner from './Spinner'
 
 import Message from './Message'
 import CountryItem from './CountryItem'
-import PropTypes from 'prop-types';
+
 import { useCities } from '../Context/CitiesContext'
 
 
@@ -27,14 +27,6 @@ function CountryList() {
     )
 }
 
-CountryList.propTypes = {
-    cities: PropTypes.arrayOf(
-        PropTypes.shape({
-            country: PropTypes.string.isRequired,
-            emoji: PropTypes.string,
-        })
-    ).isRequired,
-    isloading: PropTypes.bool.isRequired,
-};
+
 
 export default CountryList;
