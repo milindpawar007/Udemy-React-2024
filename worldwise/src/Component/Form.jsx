@@ -33,9 +33,10 @@ function Form() {
         setIsLoadingGeocodingdata(true);
         const res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
         const data = await res.json();
+        // if (data.countryCode) throw new Error("select correct cities")
         setCityName(data.city || data.locality || "")
         setCountry(data.countryCode || "");
-
+        setIsLoadingGeocodingdata(false);
 
       } catch (error) {
         console.log(error)
