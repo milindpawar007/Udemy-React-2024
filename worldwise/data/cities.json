@@ -49,18 +49,6 @@
       }
     },
     {
-      "id": "17fb",
-      "cityName": "Lewisville",
-      "country": "United States of America (the)",
-      "emoji": "🇺🇸",
-      "date": "2025-06-10T20:03:16.347Z",
-      "notes": "asdasd",
-      "position": {
-        "lat": 33.23899558720061,
-        "lng": -97.05403451677586
-      }
-    },
-    {
       "id": "066b",
       "cityName": "Arlington",
       "country": "United States of America (the)",
@@ -70,18 +58,6 @@
       "position": {
         "lat": 32.72748025549066,
         "lng": -97.0647076817144
-      }
-    },
-    {
-      "id": "1769",
-      "cityName": "Fort Worth",
-      "country": "United States of America (the)",
-      "emoji": "🇺🇸",
-      "date": "2025-06-10T20:13:25.712Z",
-      "notes": "texas",
-      "position": {
-        "lat": 32.736540379006534,
-        "lng": -97.29547650741608
       }
     },
     {
