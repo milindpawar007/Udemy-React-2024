@@ -1,7 +1,7 @@
 import './Flag.module.css';
 
 const Flag = ({ emoji, countryCode }) => {
-    console.log("flag is called")
+
     // Determine flag code
     let code = '';
 
@@ -16,7 +16,7 @@ const Flag = ({ emoji, countryCode }) => {
     }
 
     const url = `https://flagcdn.com/w80/${code}.png`;
-    console.log(url)
+
     return (
         <img
             src={url}
