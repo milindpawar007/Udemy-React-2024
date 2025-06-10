@@ -6,11 +6,14 @@ import { useState } from "react";
 import { useCities } from "../Context/CitiesContext";
 import Flag from './Flag';
 import { useEffect } from "react";
+import { useGeolocation } from "../hooks/useGeolocation";
+import Button from "./Button";
 function Map() {
 
     const { cities } = useCities();
     const [mapPosition, setMapPosition] = useState([52.53586782505711, 13.376933665713324])
     const [searchParam] = useSearchParams();
+    const { isLoading: isLoadingPostion, position: geoLocationPosition, getPosition } = useGeolocation();
     const maplat = Number(searchParam.get("lat"));
     const maplng = Number(searchParam.get("lng"));
 
@@ -18,9 +21,16 @@ function Map() {
     useEffect(() => {
         if (maplat && maplng) setMapPosition([maplat, maplng])
     }, [maplat, maplng])
+
+    useEffect(() => {
+        if (geoLocationPosition) setMapPosition([geoLocationPosition.lat, geoLocationPosition.lng])
+    }, [geoLocationPosition])
     return (
         <div className={styles.mapContainer} >
-            <MapContainer className={styles.map} center={[maplat, maplng]} zoom={6} scrollWheelZoom={true}>
+            {!geoLocationPosition && (<Button type="position" onClick={getPosition}>
+                {isLoadingPostion ? 'Loading...' : ' USE YOUR POSITION'}
+            </Button>)}
+            <MapContainer className={styles.map} center={[maplat, maplng]} zoom={15} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
