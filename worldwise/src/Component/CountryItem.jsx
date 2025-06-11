@@ -1,20 +1,15 @@
 import styles from "./CountryItem.module.css";
-import PropTypes from "prop-types";
 
+import Flag from './Flag';
 function CountryItem({ country }) {
   return (
     <li className={styles.countryItem}>
-      {/* <span>{country.emoji}</span> */}
-      <span>{country.country}</span>
+
+      <h3><Flag emoji={country.emoji} />{'     '}{country.country.split('(')[0].trim()}</h3>
     </li>
   );
 }
 
-CountryItem.propTypes = {
-  country: PropTypes.shape({
-    country: PropTypes.string.isRequired,
-    // emoji: PropTypes.string, // Uncomment if you use emoji
-  }).isRequired,
-};
+
 
 export default CountryItem;

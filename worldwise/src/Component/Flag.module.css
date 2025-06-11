@@ -1,0 +1,7 @@
+/* Flag.css */
+.flag-img {
+  height: auto;
+  display: inline-block;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
