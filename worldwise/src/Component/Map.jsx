@@ -53,9 +53,10 @@ function Map() {
 
 
 function ChangeCenter({ position }) {
+
     const map = useMap();
     map.setView(position)
-
+    console.log(map)
     return null;
 
 }
