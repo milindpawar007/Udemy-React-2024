@@ -15,9 +15,7 @@ function Map() {
     const [mapPosition, setMapPosition] = useState([52.53586782505711, 13.376933665713324])
 
     const { isLoading: isLoadingPostion, position: geoLocationPosition, getPosition } = useGeolocation();
-    //const [searchParam] = useSearchParams();
-    // const maplat = Number(searchParam.get("lat"));
-    // const maplng = Number(searchParam.get("lng"));
+
     const [maplat, maplng] = useURLPosition();
 
     useEffect(() => {

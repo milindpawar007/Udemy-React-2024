@@ -5,7 +5,7 @@ function CountryItem({ country }) {
   return (
     <li className={styles.countryItem}>
 
-      <h3><Flag emoji={country.emoji} />{'     '}{country.country}</h3>
+      <h3><Flag emoji={country.emoji} />{'     '}{country.country.split('(')[0].trim()}</h3>
     </li>
   );
 }
