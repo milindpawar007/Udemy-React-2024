@@ -1,27 +1,25 @@
-import { createContext, useContext, useReducer, useState } from "react"
+import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
 
-const initalState = {
+const initialState = {
     user: null,
-    isAuthencated: false
-}
+    isAuthenticated: false,
+};
 
 function reducer(state, action) {
-    switch (action) {
-        case 'login':
+    switch (action.type) {
+        case "login":
             return {
                 ...state,
                 user: action.payload,
-                isAuthencated: true
-
-            }
-        case 'logout': return initalState;
-
-        default: throw new Error("unknwon action is called");
+                isAuthenticated: true,
+            };
+        case "logout":
+            return initialState;
+        default:
+            throw new Error("Unknown action type");
     }
-
-
 }
 
 const FAKE_USER = {
@@ -32,30 +30,34 @@ const FAKE_USER = {
 };
 
 function AuthProvider({ children }) {
+    const [{ user, isAuthenticated }, dispatch] = useReducer(reducer, initialState);
 
-    const [{ user, isAuthencated }, dispatch] = useReducer(reducer, initalState)
-
-    function login({ email, password }) {
+    function login(email, password) {
+        console.log(email, password)
         if (email === FAKE_USER.email && password === FAKE_USER.password) {
-            dispatch({ type: 'login', value: FAKE_USER })
+            console.log("Credentials matched");
+            dispatch({ type: "login", payload: FAKE_USER });
+        } else {
+            console.log("Invalid credentials");
         }
-
     }
 
     function logout() {
-        dispatch({ type: 'logout' })
+        dispatch({ type: "logout" });
     }
+
     return (
-        <AuthContext.Provider value={{ user, isAuthencated, login, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
+
 function useAuthContext() {
     const context = useContext(AuthContext);
-    if (context === undefined) throw new Error("conenxt used outside the provider")
-    return context
+    if (context === undefined)
+        throw new Error("useAuthContext must be used within an AuthProvider");
+    return context;
 }
 
-
-export { AuthProvider, useAuthContext }
+export { AuthProvider, useAuthContext };
