@@ -22,10 +22,10 @@ export default function Login() {
   useEffect(() => {
 
     if (isAuthenticated) {
-      navigate('/app')
+      navigate('/app', { replace: true })
     }
 
-  }, [isAuthenticated])
+  }, [isAuthenticated, navigate])
   return (
     <main className={styles.login}>
       <PageNav />
