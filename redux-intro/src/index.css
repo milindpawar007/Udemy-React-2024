@@ -45,3 +45,78 @@ button {
   min-width: 180px;
   text-align: center;
 }
+
+.inputs > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputs label {
+  font-weight: bold;
+}
+
+.inputs input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.inputs button {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border: 1px solid #000;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.inputs button:hover {
+  background: #f0f0f0;
+}
+.account-operations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.account-operations > div {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.account-operations label {
+  font-weight: bold;
+}
+
+.account-operations input,
+.account-operations select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.account-operations button {
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  border: none;
+  background-color: #4f46e5;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.account-operations button:hover {
+  background-color: #4338ca;
+}
