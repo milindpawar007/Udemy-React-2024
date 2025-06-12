@@ -1,3 +1,5 @@
+import { createStore } from 'redux';
+
 const initialState = {
   balance: 0,
   loan: 0,
@@ -9,19 +11,21 @@ function reducer(state = initialState, action) {
     case 'account/deposit':
       return {
         ...state,
-        balance: state.balance + action.paylaod,
+        balance: state.balance + action.payload,
       };
     case 'account/withdraw':
       return {
         ...state,
-        balance: state.balance - action.paylaod,
+        balance: state.balance - action.payload,
       };
     case 'account/requestLoan':
       if (state.loan > 0) return state;
       return {
         ...state,
 
-        loan: action.paylaod,
+        loan: action.payload.amount,
+        balance: state.balance + action.payload.amount,
+        loanPurpose: action.payload.purpose,
       };
     case 'account/payLoan':
       if (state.loan === 0) return state;
@@ -35,3 +39,26 @@ function reducer(state = initialState, action) {
       return state;
   }
 }
+
+const store = createStore(reducer);
+
+store.dispatch({ type: 'account/deposit', payload: 5000 });
+
+console.log(store.getState());
+
+store.dispatch({ type: 'account/withdraw', payload: 500 });
+
+console.log(store.getState());
+
+store.dispatch({
+  type: 'account/requestLoan',
+  payload: { amount: 1000, purpose: 'Buy the Car' },
+});
+
+console.log(store.getState());
+
+store.dispatch({
+  type: 'account/payLoan',
+});
+
+console.log(store.getState());
