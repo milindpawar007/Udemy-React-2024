@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import clickSound from './ClickSound.m4a';
 
 function Calculator({ workouts, allowSound }) {
@@ -12,17 +12,20 @@ function Calculator({ workouts, allowSound }) {
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
-  const playSound = function () {
-    if (!allowSound) return;
-    const sound = new Audio(clickSound);
-    sound.play();
-  };
-
   useEffect(() => {
     const newduration =
       (number * sets * speed) / 60 + (sets - 1) * durationBreak;
     setDuration(newduration);
   }, [number, sets, speed, durationBreak]);
+
+  useEffect(() => {
+    const playSound = function () {
+      if (!allowSound) return;
+      const sound = new Audio(clickSound);
+      sound.play();
+    };
+    playSound();
+  }, [duration]);
 
   function handelInc() {
     setDuration((p) => Math.floor(p + 1));
@@ -40,7 +43,6 @@ function Calculator({ workouts, allowSound }) {
             value={number}
             onChange={(e) => {
               setNumber(+e.target.value);
-              playSound();
             }}
           >
             {workouts.map((workout) => (
@@ -71,7 +73,6 @@ function Calculator({ workouts, allowSound }) {
             value={speed}
             onChange={(e) => {
               setSpeed(e.target.value);
-              playSound();
             }}
           />
           <span>{speed} sec/exercise</span>
@@ -85,7 +86,6 @@ function Calculator({ workouts, allowSound }) {
             value={durationBreak}
             onChange={(e) => {
               setDurationBreak(e.target.value);
-              playSound();
             }}
           />
           <span>{durationBreak} minutes/break</span>
