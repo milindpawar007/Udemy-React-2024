@@ -5,13 +5,13 @@ import Spinner from './Spinner'
 
 import Message from './Message'
 import CountryItem from './CountryItem'
-import PropTypes from 'prop-types';
+
+import { useCities } from '../Context/CitiesContext'
 
 
-
-function CountryList({ cities, isloading }) {
-    console.log(cities)
-
+function CountryList() {
+    const { cities, isloading } = useCities();
+    console.log(cities, isloading);
     if (isloading) return <Spinner />
     if (!cities.length) return <Message message={'Add your City by Clicking on City on the Map'} />
     const countries = Array.from(
@@ -27,14 +27,6 @@ function CountryList({ cities, isloading }) {
     )
 }
 
-CountryList.propTypes = {
-    cities: PropTypes.arrayOf(
-        PropTypes.shape({
-            country: PropTypes.string.isRequired,
-            emoji: PropTypes.string,
-        })
-    ).isRequired,
-    isloading: PropTypes.bool.isRequired,
-};
+
 
 export default CountryList;
