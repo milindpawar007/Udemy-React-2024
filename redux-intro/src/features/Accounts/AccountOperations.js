@@ -26,7 +26,7 @@ function AccountOperations() {
   }
 
   function handleRequestLoan() {
-    if (!loanAmount || loanPurpose) return;
+    if (!loanAmount || !loanPurpose) return;
     dispatch(requestLoan(loanAmount, loanPurpose));
     setLoanAmount('');
     setLoanPurpose('');
@@ -86,11 +86,14 @@ function AccountOperations() {
           />
           <button onClick={handleRequestLoan}>Request loan</button>
         </div>
-
-        <div>
-          <span>Pay back ${account.loan}</span>
-          <button onClick={handlePayLoan}>Pay loan</button>
-        </div>
+        {account.loan > 0 && (
+          <div>
+            <span>
+              Pay back {account.loanPurpose} ${account.loan}
+            </span>
+            <button onClick={handlePayLoan}>Pay loan</button>
+          </div>
+        )}
       </div>
     </div>
   );
