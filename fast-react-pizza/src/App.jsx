@@ -10,13 +10,19 @@ import Order from './features/orders/Order';
 import CreateOrder from './features/orders/CreateOrder';
 
 import Cart from "./features/carts/Cart"
+import Applayout from './ui/Applayout';
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/cart", element: <Cart /> },
-  { path: "/order/new", element: <CreateOrder /> },
-  { path: "/order/:orderId", element: <Order /> },
-  { path: "/menu", element: <Menu /> },
+  {
+    element: <Applayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/cart", element: <Cart /> },
+      { path: "/order/new", element: <CreateOrder /> },
+      { path: "/order/:orderId", element: <Order /> },
+      { path: "/menu", element: <Menu /> },]
+  },
+
 
 ])
 
