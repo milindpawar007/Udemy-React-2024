@@ -22,7 +22,7 @@ function CreateUser() {
 
       {username.trim() !== '' && (
         <div>
-          <Button>Start ordering</Button>
+          <Button type='small'>Start ordering</Button>
         </div>
       )}
     </form>
