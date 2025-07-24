@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function getWeatherIcon(wmoCode) {
   const icons = new Map([
@@ -73,6 +73,11 @@ export default function App() {
     setIsLoading(true);
     fetchWeather();
   }
+
+  useEffect(() => {
+    fetchWeather('Dallas');
+  }, []);
+
   return (
     <div className="app">
       <h1>Classy Weather</h1>
