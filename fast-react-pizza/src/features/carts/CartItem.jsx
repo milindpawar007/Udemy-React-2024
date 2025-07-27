@@ -1,8 +1,9 @@
 import React from "react";
 import { formatCurrency } from "../../utils/helpers";
-
+import UpdateItemQunatity from "./UpdateItemQunatity";
 import DeleteItem from "./DeleteItem";
 function CartItem({ item }) {
+
   const { name, quantity, totalPrice } = item;
   let pizzaID = item.pizzaID;
   console.log(pizzaID)
@@ -13,7 +14,8 @@ function CartItem({ item }) {
       </p>
       <div className="flex items-center justify-between sm:gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
-        <DeleteItem pizzaId={pizzaID} />
+        <UpdateItemQunatity pizzaID={pizzaID} />
+        <DeleteItem pizzaID={pizzaID} />
 
       </div>
     </li>
