@@ -8,6 +8,7 @@ import {
 import { getOrder } from '../../services/apiRestaurant';
 import { useFetcher, useLoaderData } from 'react-router-dom';
 import OrderItem from '../orders/OrderItem';
+import UpdaterOrder from './UpdaterOrder';
 
 // const order = {
 //   id: "ABCDEF",
@@ -100,6 +101,7 @@ function Order() {
         {priority && <p className='text-sm font-medium text-stone-600'>Price priority: {formatCurrency(priorityPrice)}</p>}
         <p className='font-bold'>To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
       </div>
+      {!priority && <UpdaterOrder order={order} />}
     </div>
   );
 }
